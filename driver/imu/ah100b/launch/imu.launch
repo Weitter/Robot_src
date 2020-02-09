@@ -1,0 +1,7 @@
+<launch>
+    
+      
+  <node pkg="ah100b" type="ah100b" name="imu1"/>
+  <node pkg="ah100b" type="ah100b_fix" name="imu2"/>
+  <node pkg="ah100b" type="ah100b_tf" name="imu3"/>
+</launch>

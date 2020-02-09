@@ -1,0 +1,7 @@
+<launch>
+    
+      
+  <node pkg="udp_points" type="client_run_node" name="run_node"/>
+
+
+</launch>

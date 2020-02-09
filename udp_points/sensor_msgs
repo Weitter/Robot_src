@@ -1,0 +1,69 @@
+ /rfans_driver/rfans_points
+
+
+
+
+rosmsg show sensor_msgs/PointCloud2
+
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+uint32 height
+uint32 width
+sensor_msgs/PointField[] fields
+  uint8 INT8=1
+  uint8 UINT8=2
+  uint8 INT16=3
+  uint8 UINT16=4
+  uint8 INT32=5
+  uint8 UINT32=6
+  uint8 FLOAT32=7
+  uint8 FLOAT64=8
+  string name
+  uint32 offset
+  uint8 datatype
+  uint32 count
+bool is_bigendian
+uint32 point_step
+uint32 row_step
+uint8[] data
+bool is_dense
+
+
+
+#include <pcl/io/pcd_io.h>
+#include <ctime>
+#include <Eigen/Core>
+#include <pcl/point_types.h>
+#include <pcl/point_cloud.h>
+
+using namespace std;
+typedef pcl::PointXYZ point;
+typedef pcl::PointXYZRGBA pointcolor;
+
+int main(int argc,char **argv)
+{
+        pcl::PointCloud<pointcolor>::Ptr input (new pcl::PointCloud<pointcolor>);
+        pcl::io::loadPCDFile(argv[1],*input);
+        
+
+        pcl::PointCloud<point>::Ptr output (new pcl::PointCloud<point>);
+        int M = input->points.size();
+        cout<<"input size is:"<<M<<endl;
+
+        for (int i = 0;i <M;i++)
+        {
+                point p;
+                p.x = input->points[i].x;
+                p.y = input->points[i].y;
+                p.z = input->points[i].z; 
+                output->points.push_back(p);
+        }
+        output->width = 1;
+        output->height = M;
+        
+        cout<< "size is"<<output->size()<<endl;
+        pcl::io::savePCDFile("output.pcd",*output);
+
+}

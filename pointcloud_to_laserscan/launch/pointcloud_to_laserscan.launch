@@ -1,0 +1,31 @@
+<launch>
+	<!-- <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+		<param name="range_min" value="0.5"/>
+		<param name="range_max" value="100.0"/>
+		<param name="angle_min" value="-3.14"/>
+		<param name="angle_max" value="3.14"/>
+        <param name="angle_increment" value="0.00314159"/>
+		<param name="scan_time" value="0.00005"/>
+		<param name="transform_tolerance" value="1.0"/>
+		<param name="concurrency_level" value="0"/>
+		<param name="min_height" value="0.0"/>
+        <param name="max_height" value="3.0"/>
+        <remap from="cloud_in" to="/rfans_driver/point_raw"/>
+		
+	</node> -->
+	<node pkg="nodelet" type="nodelet" name="manager" args="manager" />
+	<node pkg="nodelet" type="nodelet" name="pointcloud_to_laserscan" args="load pointcloud_to_laserscan/pointcloud_to_laserscan_nodelet manager">
+		<param name="range_min" value="0.5"/>
+		<param name="range_max" value="100.0"/>
+		<param name="angle_min" value="-3.14"/>
+		<param name="angle_max" value="3.14"/>
+        <param name="angle_increment" value="0.00314159"/>
+		<param name="scan_time" value="0.00005"/>
+		<param name="transform_tolerance" value="1.0"/>
+		<param name="concurrency_level" value="2"/>
+		<param name="min_height" value="0.0"/>
+        <param name="max_height" value="3.0"/>
+        <remap from="cloud_in" to="/rfans_driver/rfans_points"/>
+		
+	</node>	
+</launch>
